@@ -1,0 +1,7 @@
+torch
+torch
+transformers
+einops
+accelerate
+bitsandbytes
+xformers
