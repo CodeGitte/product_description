@@ -182,12 +182,22 @@ if check_password():
     if selected_comparison_data is not None:
         # Load and display the product image
         product_image = Image.open(selected_comparison_data["product_image"])
-        st.image(product_image, caption="Product Image", use_column_width=True)
+        st.image(product_image, caption="Produktbild", use_column_width=True)
 
         # Display the old product description
         old_description = selected_comparison_data["old_description"]
         st.subheader("Bestehende Produktbeschreibung:")
         st.write(old_description)
+
+        #Display the original product data
+        selected_comparison_data = selected_comparison["unfiltered_data"]
+        st.subheader("Original Product Data")
+        st.write(selected_comparison_data)
+
+        # Display the new product description
+        new_description = sequences[0]["generated_text"]
+        st.subheader("KI-generierte Produktbeschreibung")
+        st.write(new_description)
 
         # Put everything together: pipeline and data
         sequences = text_generator(
@@ -196,18 +206,6 @@ if check_password():
             top_k=10,
             num_return_sequences=1,
         )
-
-        # Get the selected comparison data
-        selected_comparison_data = selected_comparison["unfiltered_data"]
-
-        # Display the original product data
-        st.subheader("Original Product Data")
-        st.write(selected_comparison_data)
-
-        # Display the new product description
-        new_description = sequences[0]["generated_text"]
-        st.subheader("KI-generierte Produktbeschreibung")
-        st.write(new_description)
 
     # Run the Streamlit app
     if __name__ == "__main__":
