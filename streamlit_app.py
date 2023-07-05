@@ -196,7 +196,5 @@ if check_password():
             top_k=10,
             num_return_sequences=1)
             
-        # Display the new product description
-        new_description = sequences[0]["generated_text"]
-        st.write(new_description)
+   
 
