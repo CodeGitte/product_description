@@ -197,7 +197,7 @@ if check_password():
             num_return_sequences=1,
 
         # Display the new product description
-        new_description = sequences[0]["generated_text"]
+        new_description = sequences["generated_text"]
         st.subheader("KI-generierte Produktbeschreibung")
         st.write(new_description)
         )
