@@ -1,10 +1,12 @@
 # Import all relevant libraries
 import streamlit as st
 from PIL import Image
-from transformers import AutoTokenizer, pipeline
+from transformers import pipeline
+import transformers
 import os
 import warnings
 warnings.filterwarnings("ignore")
+import torch
 
 
 # streamlit_app.py
@@ -45,24 +47,11 @@ if check_password():
     @st.cache_resource()
     def load_model():
         # Defining the model pipeline from HuggingFace
-        return pipeline(model = "philschmid/instruct-igel-001")
-
+        return pipeline(model_name = "philschmid/instruct-igel-001", task = "text-generation")
+    
     # Load the model
-    model = load_model()
-
-    # Example images
-    image_options_folder = "images"
-    image_options = os.listdir(image_options_folder)
-
-
-    # Generate the tokenizer and pipeline
-    tokenizer = AutoTokenizer.from_pretrained(model)
-    pipeline = pipeline(
-        "text-generation",
-        model=model,
-        tokenizer=tokenizer,
-    )
-
+    text_generator = load_model()
+    
     # Define a function to filter the given data
     def filter_data(data):
         """
@@ -81,6 +70,10 @@ if check_password():
             if key not in ["Artikelnummer", "Pflegehinweis", "Zusatzinformation"] and "Ohne" not in value:
                 filtered_data[key] = value
         return filtered_data
+
+    # Example images
+    image_options_folder = "images"
+    image_options = os.listdir(image_options_folder)
 
     # Define the product comparisons
     comparisons = [
@@ -197,7 +190,7 @@ if check_password():
         st.write(old_description)
 
         # Put everything together: pipeline and data
-        sequences = pipeline(
+        sequences = text_generator(
             f"Schreibe einen Text, der dieses Produkt beschreibt, und verwende alle Daten {filter_data(selected_comparison_data['unfiltered_data'])}:",
             max_length=600,
             top_k=10,
