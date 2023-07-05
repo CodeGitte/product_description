@@ -194,7 +194,7 @@ if check_password():
             f"Schreibe einen Text, der dieses Produkt beschreibt, und verwende alle Daten {filter_data(selected_comparison_data['unfiltered_data'])}:",
             max_length=600,
             top_k=10,
-            num_return_sequences=1,
+            num_return_sequences=1)
             
         # Display the new product description
         new_description = sequences[0]["generated_text"]
