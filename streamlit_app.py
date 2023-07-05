@@ -182,7 +182,7 @@ if check_password():
     if selected_comparison_data is not None:
         # Load and display the product image
         product_image = Image.open(selected_comparison_data["product_image"])
-        st.image(product_image, caption="Produktbild", use_column_width=True)
+        st.image(product_image, use_column_width=True)
 
         # Display the old product description
         old_description = selected_comparison_data["old_description"]
@@ -190,7 +190,7 @@ if check_password():
         st.write(old_description)
 
         #Display the original product data
-        selected_comparison_data = selected_comparison["unfiltered_data"]
+        selected_comparison_data = selected_comparison_data["unfiltered_data"]
         st.subheader("Original Product Data")
         st.write(selected_comparison_data)
 
