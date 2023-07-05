@@ -195,7 +195,9 @@ if check_password():
             max_length=600,
             top_k=10,
             num_return_sequences=1,
-        
+            
+        # Display the new product description
+        new_description = sequences[0]["generated_text"]
+        st.subheader("KI-generierte Produktbeschreibung")
+        st.write(new_description)
 
-    # Run the Streamlit app
-    if __name__ == "__main__":
