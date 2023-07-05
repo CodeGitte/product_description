@@ -200,7 +200,7 @@ if check_password():
         new_description = sequences[0]["generated_text"]
         st.subheader("KI-generierte Produktbeschreibung")
         st.write(new_description)
-        )
+        
 
     # Run the Streamlit app
     if __name__ == "__main__":
