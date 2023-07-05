@@ -5,3 +5,4 @@ einops
 accelerate
 bitsandbytes
 xformers
+streamlit
