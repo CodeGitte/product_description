@@ -189,22 +189,17 @@ if check_password():
         st.subheader("Bestehende Produktbeschreibung:")
         st.write(old_description)
 
-        #Display the original product data
-        selected_comparison_data = selected_comparison_data["unfiltered_data"]
-        st.subheader("Original Product Data")
-        st.write(selected_comparison_data)
-
-        # Display the new product description
-        new_description = sequences[0]["generated_text"]
-        st.subheader("KI-generierte Produktbeschreibung")
-        st.write(new_description)
-
         # Put everything together: pipeline and data
         sequences = text_generator(
             f"Schreibe einen Text, der dieses Produkt beschreibt, und verwende alle Daten {filter_data(selected_comparison_data['unfiltered_data'])}:",
             max_length=600,
             top_k=10,
             num_return_sequences=1,
+
+        # Display the new product description
+        new_description = sequences[0]["generated_text"]
+        st.subheader("KI-generierte Produktbeschreibung")
+        st.write(new_description)
         )
 
     # Run the Streamlit app
