@@ -1,7 +1,7 @@
 # Import all relevant libraries
 import streamlit as st
 from PIL import Image
-from transformers import pipeline
+from transformers import pipeline, AutoTokenizer
 import transformers
 import os
 import warnings
@@ -44,14 +44,20 @@ if check_password():
     st.markdown("bla")
     st.divider()
 
-    @st.cache_resource()
-    def load_model():
-        # Defining the model pipeline from HuggingFace
-        return pipeline(model="philschmid/instruct-igel-001")
+    # Define the chosen LLM: IGEL 
+    model = AutoTokenizer.from_pretrained("philschmid/instruct-igel-001")
     
-    # Load the model
-    text_generator = load_model()
-    
+    # Generate the tokenizer and pipeline
+    tokenizer = AutoTokenizer.from_pretrained(model)
+    pipeline = transformers.pipeline(
+        "text-generation",
+        model=model,
+        tokenizer=tokenizer,
+        torch_dtype=torch.bfloat16,
+        trust_remote_code=True,
+        device_map="auto",
+    )
+        
     # Define a function to filter the given data
     def filter_data(data):
         """
@@ -190,7 +196,7 @@ if check_password():
         st.write(old_description)
 
         # Put everything together: pipeline and data
-        sequences = text_generator(
+        sequences = pipeline(
             f"Schreibe einen Text, der dieses Produkt beschreibt, und verwende alle Daten {filter_data(selected_comparison_data['unfiltered_data'])}:",
             max_length=600)
 
