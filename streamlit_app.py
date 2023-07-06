@@ -47,7 +47,7 @@ if check_password():
     @st.cache_resource()
     def load_model():
         # Defining the model pipeline from HuggingFace
-        return pipeline("text-generation", model="philschmid/instruct-igel-001")
+        return pipeline(model="philschmid/instruct-igel-001")
     
     # Load the model
     text_generator = load_model()
@@ -190,7 +190,7 @@ if check_password():
         st.write(old_description)
 
         # Put everything together: pipeline and data
-        sequences = pipeline(
+        sequences = text_generator(
             f"Schreibe einen Text, der dieses Produkt beschreibt, und verwende alle Daten {filter_data(selected_comparison_data['unfiltered_data'])}:",
             max_length=600)
 
