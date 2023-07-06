@@ -44,20 +44,14 @@ if check_password():
     st.markdown("bla")
     st.divider()
 
-    # Define the chosen LLM: IGEL 
-    model = AutoTokenizer.from_pretrained("philschmid/instruct-igel-001")
+    @st.cache_resource()
+    def load_model():
+        # Defining the model pipeline from HuggingFace
+        return pipeline(model_name = "philschmid/instruct-igel-001", task = "text-generation")
     
-    # Generate the tokenizer and pipeline
-    tokenizer = AutoTokenizer.from_pretrained(model)
-    pipeline = transformers.pipeline(
-        "text-generation",
-        model=model,
-        tokenizer=tokenizer,
-        torch_dtype=torch.bfloat16,
-        trust_remote_code=True,
-        device_map="auto",
-    )
-        
+    # Load the model
+    text_generator = load_model()
+    
     # Define a function to filter the given data
     def filter_data(data):
         """
