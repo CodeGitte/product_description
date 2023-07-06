@@ -47,7 +47,7 @@ if check_password():
     @st.cache_resource()
     def load_model():
         # Defining the model pipeline from HuggingFace
-        return pipeline(model_name = "philschmid/instruct-igel-001", task = "text-generation")
+        return pipeline(model = "philschmid/instruct-igel-001", task = "text-generation")
     
     # Load the model
     text_generator = pipeline(task="text-generation", model="philschmid/instruct-igel-001")
