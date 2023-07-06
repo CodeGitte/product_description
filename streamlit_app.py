@@ -40,7 +40,7 @@ def check_password():
 
 if check_password():
     # Adding title
-    st.title("KI-generierte Produktbeschreibungen")
+    st.title("Mockup: KI-generierte Produktbeschreibungen")
     st.markdown("bla")
     st.divider()
 
