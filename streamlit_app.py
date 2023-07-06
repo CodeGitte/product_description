@@ -50,7 +50,7 @@ if check_password():
         return pipeline(model = "philschmid/instruct-igel-001", task = "text-generation")
     
     # Load the model
-    text_generator = pipeline(task="text-generation", model="philschmid/instruct-igel-001")
+    text_generator = load_model()
     
     # Define a function to filter the given data
     def filter_data(data):
