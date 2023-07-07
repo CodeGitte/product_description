@@ -54,7 +54,7 @@ if check_password():
             "name": "Bluse",
             "product_image": "images/bluse.png",
             "old_description": "Vielseitig kombinierbare Bluse zum Reinschlüpfen. Mit einer breiten Blende, die mittig vom Hemdkragen bis zum Saum verläuft und elegant die kurze Knopfleiste verdeckt. Formgebende Brustabnäher. Lange Ärmel mit Knopfmanschetten",
-            "new_description": "Dieses Hemd ist aus strapazierfähiger Baumwolle gefertigt und hat einen Hemdkragen. Die Ärmel haben einen bequemen und langen Schnitt.",
+            "new_description": "Dieses Produkt bietet eine vielseitige Kombination aus Stil und Komfort. Der lange Ärmel sorgt für eine angenehme Passform ohne Einschränkungen. Der Hemdkragen sorgt für einen eleganten Look, und das 100% Baumwoll-Gewebe sorgt für einen angenehmen Tragekomfort.",
             "unfiltered_data": {
                 "Artikelnummer": "683.804.160",
                 "Ärmellänge": "Langarm",
