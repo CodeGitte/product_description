@@ -44,33 +44,6 @@ if check_password():
     st.markdown("bla")
     st.divider()
 
-    @st.cache_resource()
-    def load_model():
-        # Defining the model pipeline from HuggingFace
-        return pipeline(model = "philschmid/instruct-igel-001", task = "text-generation")
-    
-    # Load the model
-    text_generator = load_model()
-    
-    # Define a function to filter the given data
-    def filter_data(data):
-        """
-        Filters the given data dictionary by removing specific keys ('Artikelnummer', 'Pflegehinweis')
-        and values that contain the substring 'Ohne'.
-
-        Args:
-            data (dict): The input data dictionary.
-
-        Returns:
-            dict: The filtered data dictionary.
-
-        """
-        filtered_data = {}
-        for key, value in data.items():
-            if key not in ["Artikelnummer", "Pflegehinweis", "Zusatzinformation"] and "Ohne" not in value:
-                filtered_data[key] = value
-        return filtered_data
-
     # Example images
     image_options_folder = "images"
     image_options = os.listdir(image_options_folder)
@@ -81,6 +54,7 @@ if check_password():
             "name": "Bluse",
             "product_image": "images/bluse.png",
             "old_description": "Vielseitig kombinierbare Bluse zum Reinschlüpfen. Mit einer breiten Blende, die mittig vom Hemdkragen bis zum Saum verläuft und elegant die kurze Knopfleiste verdeckt. Formgebende Brustabnäher. Lange Ärmel mit Knopfmanschetten",
+            "new_description": "Dieses Hemd ist aus strapazierfähiger Baumwolle gefertigt und hat einen Hemdkragen. Die Ärmel haben einen bequemen und langen Schnitt.",
             "unfiltered_data": {
                 "Artikelnummer": "683.804.160",
                 "Ärmellänge": "Langarm",
@@ -97,6 +71,7 @@ if check_password():
             "name": "Schuhe",
             "product_image": "images/schuhe.png",
             "old_description": "Wählen Sie bei dem Hausschuh von May Be Comfort Ihren Favoriten! Es gibt ihn ungefüttert mit atmungsaktivem Baumwoll-Futter und gefüttert mit wärmender Schurwolle. Das textile Obermaterial ist extra elastisch und anschmiegsam. Mit breitem Klettverschluss. Rutschhemmende Gummi-Laufsohle mit ca. 25 mm Absatz. Weite K für kräftige Füße.",
+            "new_description": "Diese Hausschuhe sind für viele Anlässe geeignet. Die Antirutschsohle hilft, auf glatten und rutschigen Oberflächen einen sicheren Halt zu haben. Die flexible und bequeme Wechselfußbettung ist ideal für verschiedene Schuhgrößen. Das atmungsaktive textile Innenfutter sorgt für Atmungsaktivität und Komfort, und der weiche Gummi auf der Außensohle ist ideal für ein angenehmes Tragegefühl.",
             "unfiltered_data": {
                 "Artikelnummer": "531.979.002",
                 "Besonderheit": "Antirutschsohle, Wechselfußbett, Hallux Valgus, für orthopädische Einlagen",
@@ -116,6 +91,7 @@ if check_password():
             "name": "Sommerkleid",
             "product_image": "images/kleid.png",
             "old_description": "Hübsches Sommerkleid mit V-Ausschnitt. Aus wunderbar weichem Single-Jersey.",
+            "new_description": "Das 'feel good' Strandkleid ist ein bequemer, bequemer und luftiger Look mit der passenden Farbpalette. Der ärmellose, V-förmige Ausschnitt, die lässige Passform und die Jerseyqualität machen das Kleid zu einem unverzichtbaren Outfit.",
             "unfiltered_data": {
                 "Artikelnummer": "254.331.041",
                 "Ärmellänge": "Ärmellos",
@@ -135,6 +111,7 @@ if check_password():
             "name": "Herrenhose",
             "product_image": "images/hose.png",
             "old_description": "Die Hose von Marco Donati in klassischer Swing-Pocket-Form punktet durch die schmutz- und wasserabweisende Funktion. Mit Knopf- und Reißverschluss vorne sowie Gürtelschlaufen. 2 seitliche Taschen inklusive Münztäschchen, 2 Gesäßtaschen mit Knopfverschluss. Die Bügelfalte wirkt streckend und sorgt für die gepflegte Ausstrahlung. Unterstützt die Initiative Cotton made in Africa.",
+            "new_description": "Diese Hose von Marco Donati ist eine stilvolle, vielseitige Hose mit einer klassischen 5-Pocket-Form. Die Hose ist wasserbeständig, hat eine feste Taille und ist aus einem Stretchmaterial gefertigt, das sich geschmeidig an den Körper anfügt. Die Hosenbeine können für zusätzlichen Komfort in der Länge angepasst werden. Der Knopf mit Reißverschluss und die Gesäßtaschen runden das Design ab, während die Länge der Hose an Ihre persönlichen Vorlieben angepasst werden kann.",
             "unfiltered_data": {
                 "Artikelnummer": "415.133.002",
                 "Bund": "Fester Bund",
@@ -155,6 +132,7 @@ if check_password():
             "name": "Taschentuch",
             "product_image": "images/taschentuch.png",
             "old_description": "In strapazierfähiger Qualität: Herren-Taschentücher.",
+            "new_description": "Diese farbenfrohen, sortierten Taschentücher sind aus 100% Baumwolle gefertigt. Sie sind 8-teilig und messen 41 x 41 cm. Es handelt sich um Herren-Taschentücher.",
             "unfiltered_data": {
                 "Artikelnummer": "503.129.003",
                 "Farbe": "farbig-sortiert",
@@ -189,14 +167,13 @@ if check_password():
         st.subheader("Bestehende Produktbeschreibung:")
         st.write(old_description)
 
-        # Put everything together: pipeline and data
-        sequences = pipeline(
-            f"Schreibe einen Text, der dieses Produkt beschreibt, und verwende alle Daten {filter_data(selected_comparison_data['unfiltered_data'])}:",
-            max_length=600)
+        # Display the new product description
+        new_description = selected_comparison_data["new_description"]
+        st.subheader("Daten:")
+        st.write(new_description)
 
         # Display the new product description
-        new_description = sequences[0]["generated_text"]
+        new_description = selected_comparison_data["new_description"]
+        st.subheader("KI-generierte Produktbeschreibung:")
         st.write(new_description)
-            
-   
 
