@@ -162,16 +162,22 @@ if check_password():
         product_image = Image.open(selected_comparison_data["product_image"])
         st.image(product_image, use_column_width=True)
 
+        st.divider()
+
         # Display the old product description
         old_description = selected_comparison_data["old_description"]
         st.subheader("Bestehende Produktbeschreibung:")
         st.write(old_description)
 
+        st.divider()
+        
         # Display the new product description
-        new_description = selected_comparison_data["new_description"]
+        new_description = selected_comparison_data["unfiltered_data"]
         st.subheader("Daten:")
         st.write(new_description)
 
+        st.divider()
+        
         # Display the new product description
         new_description = selected_comparison_data["new_description"]
         st.subheader("KI-generierte Produktbeschreibung:")
