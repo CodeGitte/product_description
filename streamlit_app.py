@@ -170,7 +170,7 @@ if check_password():
         
         # Display the new product description
         new_description = selected_comparison_data["unfiltered_data"]
-        st.subheader("Daten:")
+        st.subheader("Ungefilterte Daten:")
         st.write(new_description)
 
         st.divider()
