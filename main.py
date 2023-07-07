@@ -58,7 +58,7 @@ data = filter_data(unfiltered_data)
 
 # Put everthing together: pipeline and data 
 sequences = pipeline(
-    f"Schreibe einen Text, der dieses Produkt beschreibt, und verwende alle Daten {data}:",
+    f"Schreibe einen Fließtext, der dieses Produkt beschreibt, und verwende alle Daten {data}:",
     max_length=600,
     do_sample=True,
     top_k=10,
