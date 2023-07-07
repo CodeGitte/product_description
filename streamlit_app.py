@@ -1,12 +1,9 @@
 # Import all relevant libraries
 import streamlit as st
 from PIL import Image
-from transformers import pipeline, AutoTokenizer
-import transformers
 import os
 import warnings
 warnings.filterwarnings("ignore")
-import torch
 
 
 # streamlit_app.py
