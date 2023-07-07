@@ -41,7 +41,7 @@ def check_password():
 if check_password():
     # Adding title
     st.title("Mockup: KI-generierte Produktbeschreibungen")
-    st.markdown("bla")
+    st.markdown("Dieses Mockup generiert Produktbeschreibungen, in dem zuerst bestehende Produktdaten gefiltert werden und dann das Large Language Model (LLM) durch einen Prompt aufgefordert wird aus den gefilterten Daten einen beschreibenden Fließtext zu erstellen. Auch hier ergeben sich die gewöhnlichen Probleme bei LLMs: Halluzinationen, Doppelungen von Informationen und nicht ganz perfekte Grammatik.")
     st.divider()
 
     # Example images
